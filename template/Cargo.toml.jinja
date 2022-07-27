@@ -7,6 +7,9 @@ description = "{{ project_description }}"
 repository = "https://github.com/{{ repository_namespace }}/{{ repository_name }}/"
 {% endif %}
 license = "{% if copyright_license == 'Proprietary' %}LicenseRef-Proprietary{% else %}{{ copyright_license }}{% endif %}"
+{% if copyright_license == 'Proprietary' %}
+publish = false
+{% endif %}
 
 [dependencies]
 {% if project_type == 'bin' %}
