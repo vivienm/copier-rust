@@ -15,9 +15,14 @@ allow = [
 {% endfor %}
 ]
 {% endif %}
+{% if copyright_license == 'Proprietary' %}
+
+[licenses.private]
+ignore = true
+{% endif %}
 {% set exceptions = [] %}
-{% if copyright_license not in licenses %}
-{% set _ = exceptions.append({'name': package_name, 'license': 'LicenseRef-Proprietary' if copyright_license == 'Proprietary' else copyright_license }) %}
+{% if copyright_license != 'Proprietary' and copyright_license not in licenses %}
+{% set _ = exceptions.append({'name': package_name, 'license': copyright_license }) %}
 {% endif %}
 {% if project_type == 'bin' %}
 {% set _ = exceptions.append({'name': 'unicode-ident', 'license': 'Unicode-DFS-2016'}) %}
