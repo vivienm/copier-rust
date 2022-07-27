@@ -1,0 +1,30 @@
+[licenses]
+{% set licenses = [] %}
+{% if project_type == 'bin' %}
+{# Clap and its dependencies. #}
+{% set _ = licenses.append("MIT") %}
+{% endif %}
+{% if licenses | length == 0 %}
+allow = []
+{% elif licenses | length == 1 %}
+allow = ["{{ licenses[0] }}"]
+{% else %}
+allow = [
+{% for license in licenses | sort | unique %}
+  "{{ license }}",
+{% endfor %}
+]
+{% endif %}
+{% set exceptions = [] %}
+{% if copyright_license not in licenses %}
+{% set _ = exceptions.append({'name': package_name, 'license': 'LicenseRef-Proprietary' if copyright_license == 'Proprietary' else copyright_license }) %}
+{% endif %}
+{% if project_type == 'bin' %}
+{% set _ = exceptions.append({'name': 'unicode-ident', 'license': 'Unicode-DFS-2016'}) %}
+{% endif %}
+{% for exception in exceptions | sort(attribute='name') %}
+
+[[licenses.exceptions]]
+name = "{{ exception.name }}"
+allow = ["{{ exception.license }}"]
+{% endfor %}

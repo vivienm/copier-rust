@@ -1,0 +1,63 @@
+name: "Continuous integration"
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    name: "Check"
+    runs-on: "ubuntu-latest"
+    steps:
+    - uses: "actions/checkout@v3"
+    - uses: "dtolnay/rust-toolchain@nightly"
+    - run: "cargo check --all-features"
+
+  test:
+    name: "Test"
+    runs-on: "ubuntu-latest"
+    steps:
+    - uses: "actions/checkout@v3"
+    - uses: "dtolnay/rust-toolchain@nightly"
+    - run: "cargo test --all-features"
+
+  fmt:
+    name: "Fmt"
+    runs-on: "ubuntu-latest"
+    steps:
+    - uses: "actions/checkout@v3"
+    - uses: "dtolnay/rust-toolchain@nightly"
+      with:
+        components: "rustfmt"
+    - run: "cargo fmt --all -- --check"
+
+  clippy:
+    name: "Clippy"
+    runs-on: "ubuntu-latest"
+    steps:
+    - uses: "actions/checkout@v3"
+    - uses: "dtolnay/rust-toolchain@nightly"
+      with:
+        components: "clippy"
+    - run: "cargo clippy -- -D warnings"
+
+  doc:
+    name: "Doc"
+    runs-on: "ubuntu-latest"
+    steps:
+    - uses: "actions/checkout@v3"
+    - uses: "dtolnay/rust-toolchain@nightly"
+    - run: "cargo rustdoc --all-features -- -D warnings"
+{% if project_type == 'lib' %}
+    - if: "github.ref == 'refs/heads/master'"
+      uses: "JamesIves/github-pages-deploy-action@v4"
+      with:
+        folder: "target/doc"
+{% endif %}
+
+  deny:
+    name: "Deny"
+    runs-on: "ubuntu-latest"
+    steps:
+    - uses: "actions/checkout@v3"
+    - uses: "EmbarkStudios/cargo-deny-action@v1"

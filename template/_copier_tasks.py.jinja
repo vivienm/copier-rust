@@ -1,0 +1,12 @@
+import subprocess
+import sys
+from pathlib import Path
+
+Path(__file__).unlink()
+
+# Do not run this script on updates.
+if (Path(__file__).parent / ".git").exists():
+    sys.exit()
+
+
+subprocess.run(["git", "init"], check=True)

@@ -1,0 +1,10 @@
+use clap::Parser;
+
+#[derive(Debug, Parser)]
+#[clap(about)]
+struct Args {}
+
+fn main() {
+    let args = Args::parse();
+    println!("Hello {:?}!", args);
+}
