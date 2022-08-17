@@ -4,6 +4,10 @@ on:
   push:
   pull_request:
 
+concurrency:
+  group: "ci-${{ '{{' }} github.ref {{ '}}' }}"
+  cancel-in-progress: true
+
 jobs:
   check:
     name: "Check"
@@ -48,11 +52,11 @@ jobs:
     - uses: "actions/checkout@v3"
     - uses: "dtolnay/rust-toolchain@nightly"
     - run: "cargo rustdoc --all-features -- -D warnings"
-{% if project_type == 'lib' %}
-    - if: "github.ref == 'refs/heads/master'"
-      uses: "JamesIves/github-pages-deploy-action@v4"
+{% if pages_enabled %}
+    - if: "github.ref == format('refs/heads/{0}', github.event.repository.default_branch)"
+      uses: "actions/upload-pages-artifact@v1"
       with:
-        folder: "target/doc"
+        path: "./target/doc"
 {% endif %}
 
   typos:
@@ -68,3 +72,19 @@ jobs:
     steps:
     - uses: "actions/checkout@v3"
     - uses: "EmbarkStudios/cargo-deny-action@v1"
+{% if pages_enabled %}
+
+  pages:
+    if: "github.ref == format('refs/heads/{0}', github.event.repository.default_branch)"
+    needs: "doc"
+    permissions:
+      pages: "write"
+      id-token: "write"
+    environment:
+      name: "github-pages"
+      url: "${{ '{{' }} steps.deployment.outputs.page_url {{ '}}' }}"
+    runs-on: "ubuntu-latest"
+    steps:
+    - id: "deployment"
+      uses: "actions/deploy-pages@v1"
+{% endif %}
