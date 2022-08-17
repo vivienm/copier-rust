@@ -1,3 +1,12 @@
 # {{ project_name }}
 
 {{ project_description }}
+{% if repository_provider != "none" %}
+
+[Repository]{% if pages_enabled %} | [Documentation]{% endif %}{{ '' }}
+
+[Repository]: https://{{ repository_provider }}/{{ repository_namespace }}/{{ repository_name }}
+{% if pages_enabled and repository_provider == "github.com" %}
+[Documentation]: https://{{ repository_namespace }}.github.io/{{ repository_name }}/
+{% endif %}
+{% endif %}
