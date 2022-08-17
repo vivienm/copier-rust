@@ -11,7 +11,7 @@ An opinionated [Copier](https://copier.readthedocs.io/en/stable/) template for R
   * [typos](https://github.com/crate-ci/typos)
   * [cargo-deny](https://github.com/EmbarkStudios/cargo-deny)
 * Tests run with [just](https://github.com/casey/just).
-* Support for [GitHub actions](https://github.com/features/actions).
+* Support for [GitHub actions](https://github.com/features/actions) and [GitHub pages](https://pages.github.com/).
 
 ## Quickstart
 
