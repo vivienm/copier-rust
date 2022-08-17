@@ -7,6 +7,6 @@
 
 [Repository]: https://{{ repository_provider }}/{{ repository_namespace }}/{{ repository_name }}
 {% if pages_enabled and repository_provider == "github.com" %}
-[Documentation]: https://{{ repository_namespace }}.github.io/{{ repository_name }}/
+[Documentation]: https://{{ repository_namespace }}.github.io/{{ repository_name }}/{{ package_name | replace('-', '_') }}/
 {% endif %}
 {% endif %}
