@@ -1,4 +1,10 @@
 //! {{ project_description }}
+{% if repository_provider != "none" %}
+//!
+//! [Repository]
+//!
+//! [Repository]: https://{{ repository_provider }}/{{ repository_namespace }}/{{ repository_name }}
+{% endif %}
 
 #[cfg(test)]
 mod tests {
