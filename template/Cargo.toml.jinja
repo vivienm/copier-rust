@@ -7,7 +7,7 @@ description = "{{ project_description }}"
 repository = "{{ repository_url }}"
 {% endif %}
 {% if pages_enabled %}
-documentation = "{{ pages_url }}/{{ package_name | replace('-', '_') }}/"
+documentation = "{{ pages_url }}/docs/{{ package_name | replace('-', '_') }}/"
 {% endif %}
 license = "{% if copyright_license == 'Proprietary' %}LicenseRef-Proprietary{% else %}{{ copyright_license }}{% endif %}"
 {% if copyright_license == 'Proprietary' %}
