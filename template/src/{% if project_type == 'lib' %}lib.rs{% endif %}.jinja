@@ -1,9 +1,9 @@
 //! {{ project_description }}
-{% if repository_provider != "none" %}
+{% if repository_hosted %}
 //!
 //! [Repository]
 //!
-//! [Repository]: https://{{ repository_provider }}/{{ repository_namespace }}/{{ repository_name }}
+//! [Repository]: {{ repository_url }}
 {% endif %}
 
 #[cfg(test)]
