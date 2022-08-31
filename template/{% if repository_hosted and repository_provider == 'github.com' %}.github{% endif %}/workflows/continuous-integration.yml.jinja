@@ -27,13 +27,8 @@ jobs:
         key: "${{ '{{' }} runner.os {{ '}}' }}-cargo-${{ '{{' }} hashFiles('**/Cargo.{% if project_type == 'bin' %}lock{% else %}toml{% endif %}') {{ '}}' }}"
         restore-keys: |
           ${{ '{{' }} runner.os {{ '}}' }}-cargo-
-    - run: "cargo fmt --all -- --check"
-    - run: "cargo check --all-features"
-    - run: "cargo test --all-features"
-    - run: "cargo clippy --all-features -- -D warnings"
-    - run: "cargo rustdoc --all-features -- -D warnings"
-    - uses: "EmbarkStudios/cargo-deny-action@v1"
-    - uses: "crate-ci/typos@master"
+    - run: "cargo install just cargo-deny typos-cli"
+    - run: "just"
     - uses: "actions/upload-artifact@v3"
       with:
         name: "doc"
