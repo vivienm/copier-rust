@@ -23,6 +23,8 @@ jobs:
           ~/.cargo/registry/index/
           ~/.cargo/registry/cache/
           ~/.cargo/git/db/
+          ~/.cargo/.crates.toml
+          ~/.cargo/.crates2.json
           target/
         key: "${{ '{{' }} runner.os {{ '}}' }}-cargo-${{ '{{' }} hashFiles('**/Cargo.{% if project_type == 'bin' %}lock{% else %}toml{% endif %}') {{ '}}' }}"
         restore-keys: |
