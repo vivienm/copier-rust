@@ -9,72 +9,28 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  check:
-    name: "Check"
-    runs-on: "ubuntu-latest"
-    steps:
-    - uses: "actions/checkout@v3"
-    - uses: "dtolnay/rust-toolchain@nightly"
-    - run: "cargo check --all-features"
-
-  test:
-    name: "Test"
-    runs-on: "ubuntu-latest"
-    steps:
-    - uses: "actions/checkout@v3"
-    - uses: "dtolnay/rust-toolchain@nightly"
-    - run: "cargo test --all-features"
-
-  fmt:
-    name: "Fmt"
+  tests:
     runs-on: "ubuntu-latest"
     steps:
     - uses: "actions/checkout@v3"
     - uses: "dtolnay/rust-toolchain@nightly"
       with:
-        components: "rustfmt"
+        components: "clippy, rustfmt"
     - run: "cargo fmt --all -- --check"
-
-  clippy:
-    name: "Clippy"
-    runs-on: "ubuntu-latest"
-    steps:
-    - uses: "actions/checkout@v3"
-    - uses: "dtolnay/rust-toolchain@nightly"
-      with:
-        components: "clippy"
-    - run: "cargo clippy -- -D warnings"
-
-  doc:
-    name: "Doc"
-    runs-on: "ubuntu-latest"
-    steps:
-    - uses: "actions/checkout@v3"
-    - uses: "dtolnay/rust-toolchain@nightly"
-    - run: "cargo rustdoc --all-features -- -D warnings"
+    - run: "cargo check --all-features"
+    - run: "cargo test --all-features"
+    - run: "cargo clippy --all-features -- -D warnings"
+    - run: "cargo doc --all-features -- -D warnings"
+    - uses: "EmbarkStudios/cargo-deny-action@v1"
+    - uses: "crate-ci/typos@master"
     - uses: "actions/upload-artifact@v3"
       with:
         name: "doc"
         path: "./target/doc"
         retention-days: 7
-
-  typos:
-    name: "Typos"
-    runs-on: "ubuntu-latest"
-    steps:
-    - uses: "actions/checkout@v3"
-    - uses: crate-ci/typos@master
-
-  deny:
-    name: "Deny"
-    runs-on: "ubuntu-latest"
-    steps:
-    - uses: "actions/checkout@v3"
-    - uses: "EmbarkStudios/cargo-deny-action@v1"
 {% if pages_enabled %}
 
   pages:
-    name: "Pages"
     if: "github.ref == format('refs/heads/{0}', github.event.repository.default_branch)"
     needs: "doc"
     permissions:
