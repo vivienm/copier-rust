@@ -31,7 +31,7 @@ jobs:
     - run: "cargo check --all-features"
     - run: "cargo test --all-features"
     - run: "cargo clippy --all-features -- -D warnings"
-    - run: "cargo doc --all-features -- -D warnings"
+    - run: "cargo rustdoc --all-features -- -D warnings"
     - uses: "EmbarkStudios/cargo-deny-action@v1"
     - uses: "crate-ci/typos@master"
     - uses: "actions/upload-artifact@v3"
