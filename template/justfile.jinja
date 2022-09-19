@@ -1,6 +1,4 @@
 DEFAULT: fmt check test clippy doc deny typos
-export RUSTFLAGS := "-D warnings"
-export RUSTDOCFLAGS := "-D warnings"
 
 fmt:
     cargo fmt --all --check
