@@ -3,8 +3,8 @@ DEFAULT: fmt check test clippy doc deny typos
 fmt:
     cargo fmt --check
 
-build:
-    cargo build{% if project_type == "lib" %} --all-features{% endif %}{{ '' }}
+build *args="":
+    cargo build{% if project_type == "lib" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
 
 check:
 {% if project_type == "bin" %}
