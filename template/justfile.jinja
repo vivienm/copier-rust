@@ -7,7 +7,7 @@ build:
     cargo build --all-features
 
 check:
-    cargo check --all-features
+    cargo check --all-targets --all-features
 
 test *args="":
     cargo test --all-features {{ '{{' }}args{{ '}}' }}
