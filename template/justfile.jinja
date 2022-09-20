@@ -1,25 +1,29 @@
 DEFAULT: fmt check test clippy doc deny typos
 
 fmt:
-    cargo fmt --all --check
+    cargo fmt --check
 
 build:
-    cargo build --all-features
+    cargo build{% if project_type == "lib" %} --all-features{% endif %}{{ '' }}
 
 check:
-    cargo check --all-targets --all-features
+{% if project_type == "bin" %}
+    cargo check --all-targets
+{% else %}
+    cargo hack --feature-powerset check --all-targets
+{% endif %}
 
 test *args="":
-    cargo test --all-features {{ '{{' }}args{{ '}}' }}
+    cargo test{% if project_type == "lib" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
 
 clippy *args="":
     cargo clippy {{ '{{' }}args{{ '}}' }}
 
 doc *args="":
-    cargo doc --no-deps --all-features {{ '{{' }}args{{ '}}' }}
+    cargo doc --no-deps{% if project_type == "lib" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
 
 deny:
-    cargo deny --all-features check
+    cargo deny{% if project_type == "lib" %} --all-features{% endif %} check
 
 typos:
     typos

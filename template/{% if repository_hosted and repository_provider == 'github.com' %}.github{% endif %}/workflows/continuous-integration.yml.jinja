@@ -29,7 +29,7 @@ jobs:
         key: "${{ '{{' }} runner.os {{ '}}' }}-cargo-${{ '{{' }} hashFiles('**/Cargo.{% if project_type == 'bin' %}lock{% else %}toml{% endif %}') {{ '}}' }}"
         restore-keys: |
           ${{ '{{' }} runner.os {{ '}}' }}-cargo-
-    - run: "cargo install just cargo-deny typos-cli"
+    - run: "cargo install just{% if project_type == 'lib' %} cargo-hack{% endif %} cargo-deny typos-cli"
     - run: "just"
     - uses: "actions/upload-artifact@v3"
       with:
