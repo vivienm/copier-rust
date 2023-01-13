@@ -98,7 +98,7 @@ copyright_holder:
 copyright_date:
   help: "Copyright date"
   type: "str"
-  default: "2022"
+  default: "2023"
 
 package_name:
   help: "Rust crate name"
