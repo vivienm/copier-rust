@@ -104,3 +104,11 @@ package_name:
   help: "Rust crate name"
   type: "str"
   default: "{{ project_name | lower | replace('_', '-') | replace(' ', '-') }}"
+
+rust_toolchain:
+  help: "Rust toolchain"
+  type: "str"
+  choices:
+  - "stable"
+  - "nightly"
+  default: "nightly"
