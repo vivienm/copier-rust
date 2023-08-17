@@ -1,0 +1,15 @@
+# Changes here will be overwritten by Copier. NEVER EDIT MANUALLY.
+
+_commit: 2ac5f9d
+_src_path: git@github.com:vivienm/copier-copier
+author_fullname: Vivien Maisonneuve
+copyright_holder: Vivien Maisonneuve
+copyright_license: MIT
+copyright_year: 2023
+project_description: An opinionated Copier template for Rust projects.
+project_name: Rust project template
+repository_hosted: true
+repository_name: copier-rust
+repository_namespace: vivienm
+repository_provider: github.com
+repository_url: https://github.com/vivienm/copier-rust

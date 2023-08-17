@@ -15,30 +15,18 @@ An opinionated [Copier](https://copier.readthedocs.io/en/stable/) template for R
 
 ## Quickstart
 
-Make sur all the [requirements](#requirements) are met, then:
+To install Copier, please follow the installation instructions [here](https://copier.readthedocs.io/en/stable/#installation).
+
+Then, to create a new project based on this template, run:
 
 ```shell
-copier copy --trust 'https://github.com/vivienm/copier-rust.git' path/to/your/project
+copier copy --trust 'https://github.com/vivienm/copier-rust' path/to/your/project
 ```
 
-Or even shorter:
+and fill in the form.
+
+To update an existing project based on this template, run:
 
 ```shell
-copier copy --trust 'gh:vivienm/copier-rust' /path/to/your/new/project
-```
-
-## Requirements
-
-To use this Copier template, you will need:
-
-* [Git](https://git-scm.com/)
-* [Python 3](https://www.python.org/)
-* [Copier](https://copier.readthedocs.io/en/stable/)
-
-### Copier
-
-To install copier, you may follow its [installation instructions](https://copier.readthedocs.io/en/stable/#installation) or use [pipx](https://pipxproject.github.io/pipx/):
-
-```shell
-pipx install copier
+copier update --trust
 ```
