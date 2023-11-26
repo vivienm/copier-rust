@@ -25,6 +25,12 @@ copier copy --trust 'https://github.com/vivienm/copier-rust' path/to/your/projec
 
 and fill in the form.
 
+You may want to update the dependencies to their latest versions (in a distinct commit, to prevent conflicts when updating the template):
+
+```shell
+cargo upgrade --incompatible --recursive
+```
+
 To update an existing project based on this template, run:
 
 ```shell
