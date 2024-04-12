@@ -14,7 +14,7 @@ fn setup_logging(log_level: tracing::level_filters::LevelFilter) -> anyhow::Resu
     Ok(())
 }
 
-fn main() -> anyhow::Result<()>{
+fn main() -> anyhow::Result<()> {
     let args = Args::parse();
     setup_logging(args.log_level)?;
     println!("Hello {args:?}!");
