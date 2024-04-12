@@ -2,9 +2,21 @@ use clap::Parser;
 
 #[derive(Debug, Parser)]
 #[clap(about)]
-struct Args {}
+struct Args {
+    /// Set the verbosity level for log messages.
+    #[clap(short, long, default_value = "info", env = "{{ package_name | replace('-', '_') | upper }}_LOG_LEVEL")]
+    log_level: tracing::level_filters::LevelFilter,
+}
 
-fn main() {
+fn setup_logging(log_level: tracing::level_filters::LevelFilter) -> anyhow::Result<()> {
+    let subscriber = tracing_subscriber::fmt().with_max_level(log_level).finish();
+    tracing::subscriber::set_global_default(subscriber)?;
+    Ok(())
+}
+
+fn main() -> anyhow::Result<()>{
     let args = Args::parse();
+    setup_logging(args.log_level)?;
     println!("Hello {args:?}!");
+    Ok(())
 }
