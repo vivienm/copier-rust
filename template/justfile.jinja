@@ -17,7 +17,7 @@ test *args="":
     cargo test{% if project_type == "lib" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
 
 clippy *args="":
-    cargo clippy {{ '{{' }}args{{ '}}' }}
+    cargo clippy --all-targets{% if project_type == "lib" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
 
 doc *args="":
     cargo doc --no-deps{% if project_type == "lib" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
