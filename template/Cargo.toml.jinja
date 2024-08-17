@@ -3,19 +3,19 @@ name = "{{ package_name }}"
 version = "0.1.0"
 edition = "2021"
 description = "{{ project_description }}"
-{% if repository_hosted %}
-repository = "{{ repository_url }}"
+{% if hosting_platform != "none" %}
+repository = "{{ repo_url }}"
 {% endif %}
-{% if pages_enabled %}
+{% if github_pages %}
 documentation = "{{ pages_url }}/docs/{{ package_name | replace('-', '_') }}/"
 {% endif %}
-license = "{% if copyright_license == 'Proprietary' %}LicenseRef-Proprietary{% else %}{{ copyright_license }}{% endif %}"
-{% if copyright_license == 'Proprietary' %}
+license = "{% if license == "Proprietary" %}LicenseRef-Proprietary{% else %}{{ license }}{% endif %}"
+{% if license == "Proprietary" %}
 publish = false
 {% endif %}
 
 [dependencies]
-{% if project_type == 'bin' %}
+{% if project_type == "application" %}
 anyhow = "1.0.82"
 clap = { version = "4.5.4", features = ["derive", "env"] }
 tracing = "0.1.40"

@@ -4,11 +4,11 @@
 {% endif %}
 
 //! {{ project_description }}
-{% if repository_hosted %}
+{% if hosting_platform != "none" %}
 //!
 //! [Repository]
 //!
-//! [Repository]: {{ repository_url }}
+//! [Repository]: {{ repo_url }}
 {% endif %}
 
 #[cfg(test)]

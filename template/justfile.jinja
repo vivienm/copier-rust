@@ -4,26 +4,26 @@ fmt:
     cargo fmt --check
 
 build *args="":
-    cargo build{% if project_type == "lib" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
+    cargo build{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
 
 check:
-{% if project_type == "bin" %}
+{% if project_type == "application" %}
     cargo check --all-targets
 {% else %}
     cargo hack --feature-powerset check --all-targets
 {% endif %}
 
 test *args="":
-    cargo test{% if project_type == "lib" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
+    cargo test{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
 
 clippy *args="":
-    cargo clippy --all-targets{% if project_type == "lib" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
+    cargo clippy --all-targets{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
 
 doc *args="":
-    cargo doc --no-deps{% if project_type == "lib" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
+    cargo doc --no-deps{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
 
 deny:
-    cargo deny{% if project_type == "lib" %} --all-features{% endif %} check
+    cargo deny{% if project_type == "library" %} --all-features{% endif %} check
 
 typos:
     typos

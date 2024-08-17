@@ -20,7 +20,7 @@ To install Copier, please follow the installation instructions [here](https://co
 Then, to create a new project based on this template, run:
 
 ```shell
-copier copy --trust 'https://github.com/vivienm/copier-rust' path/to/your/project
+copier copy 'https://github.com/vivienm/copier-rust' path/to/your/project
 ```
 
 and fill in the form.
@@ -34,5 +34,5 @@ cargo upgrade --incompatible --recursive
 To update an existing project based on this template, run:
 
 ```shell
-copier update --skip-answered --trust
+copier update --skip-answered
 ```

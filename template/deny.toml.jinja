@@ -7,7 +7,7 @@ multiple-versions = "allow"
 [licenses]
 version = 2
 {% set licenses = [] %}
-{% if project_type == 'bin' %}
+{% if project_type == "application" %}
 {# Clap and its dependencies. #}
 {% set _ = licenses.append("MIT") %}
 {% endif %}
@@ -17,24 +17,24 @@ allow = []
 allow = ["{{ licenses[0] }}"]
 {% else %}
 allow = [
-{% for license in licenses | sort | unique %}
-  "{{ license }}",
+{% for l in licenses | sort | unique %}
+  "{{ l }}",
 {% endfor %}
 ]
 {% endif %}
-{% if copyright_license == 'Proprietary' %}
+{% if license == "Proprietary" %}
 
 [licenses.private]
 ignore = true
 {% endif %}
 {% set exceptions = [] %}
-{% if copyright_license != 'Proprietary' and copyright_license not in licenses %}
-{% set _ = exceptions.append({'name': package_name, 'license': copyright_license }) %}
+{% if license != "Proprietary" and license not in licenses %}
+{% set _ = exceptions.append({"name": package_name, "license": license }) %}
 {% endif %}
-{% if project_type == 'bin' %}
-{% set _ = exceptions.append({'name': 'unicode-ident', 'license': 'Unicode-DFS-2016'}) %}
+{% if project_type == "application" %}
+{% set _ = exceptions.append({"name": "unicode-ident", "license": "Unicode-DFS-2016"}) %}
 {% endif %}
-{% for exception in exceptions | sort(attribute='name') %}
+{% for exception in exceptions | sort(attribute="name") %}
 
 [[licenses.exceptions]]
 name = "{{ exception.name }}"

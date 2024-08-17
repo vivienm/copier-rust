@@ -26,10 +26,10 @@ jobs:
           ~/.cargo/.crates.toml
           ~/.cargo/.crates2.json
           target/
-        key: "${{ '{{' }} runner.os {{ '}}' }}-cargo-${{ '{{' }} hashFiles('**/Cargo.{% if project_type == 'bin' %}lock{% else %}toml{% endif %}') {{ '}}' }}"
+        key: "${{ '{{' }} runner.os {{ '}}' }}-cargo-${{ '{{' }} hashFiles('**/Cargo.{% if project_type == "application" %}lock{% else %}toml{% endif %}') {{ '}}' }}"
         restore-keys: |
           ${{ '{{' }} runner.os {{ '}}' }}-cargo-
-    - run: "cargo install just{% if project_type == 'lib' %} cargo-hack{% endif %} cargo-deny typos-cli"
+    - run: "cargo install just{% if project_type == "library" %} cargo-hack{% endif %} cargo-deny typos-cli"
     - run: "just"
       env:
         RUSTFLAGS: "-D warnings"
@@ -39,7 +39,7 @@ jobs:
         name: "doc"
         path: "./target/doc"
         retention-days: 7
-{% if pages_enabled %}
+{% if github_pages %}
 
   pages:
     if: "github.ref == format('refs/heads/{0}', github.event.repository.default_branch)"
