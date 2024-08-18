@@ -15,7 +15,8 @@ publish = false
 [dependencies]
 {% if project_type == "application" %}
 anyhow = "1.0.86"
-clap = { version = "4.5.16", features = ["derive", "env"] }
+clap = { version = "4.5.16", features = ["cargo", "derive", "env"] }
+clap_complete = "4.5.18"
 tracing = "0.1.40"
 tracing-subscriber = "0.3.18"
 {% endif %}

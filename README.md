@@ -12,6 +12,7 @@ An opinionated [Copier](https://copier.readthedocs.io/en/stable/) template for R
   * [cargo-audit](https://github.com/RustSec/rustsec/tree/main/cargo-audit)
 * Tests run with [just](https://github.com/casey/just).
 * Support for [GitHub actions](https://github.com/features/actions) and [GitHub pages](https://pages.github.com/).
+* CLI and autocompletion with [clap](https://github.com/clap-rs/clap).
 
 ## Quickstart
 
