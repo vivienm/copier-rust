@@ -19,6 +19,12 @@ jobs:
         uses: "dtolnay/rust-toolchain@{{ rust_toolchain }}"
         with:
           components: "clippy, rustfmt"
+      - name: "Install sccache"
+        uses: "mozilla-actions/sccache-action@v0.0.5"
+      - name: "Set up sccache"
+        run: |
+          echo "RUSTC_WRAPPER=sccache" >> "${GITHUB_ENV}"
+          echo "SCCACHE_GHA_ENABLED=true" >> "${GITHUB_ENV}"
       - name: "Install development tools"
         uses: "taiki-e/install-action@v2"
         with:
