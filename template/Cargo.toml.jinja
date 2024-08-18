@@ -10,9 +10,7 @@ repository = "{{ repo_url }}"
 documentation = "{{ pages_url }}/docs/{{ package_name | replace('-', '_') }}/"
 {% endif %}
 license = "{% if license == "Proprietary" %}LicenseRef-Proprietary{% else %}{{ license }}{% endif %}"
-{% if license == "Proprietary" %}
 publish = false
-{% endif %}
 
 [dependencies]
 {% if project_type == "application" %}
