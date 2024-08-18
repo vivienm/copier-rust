@@ -1,23 +1,13 @@
-DEFAULT: fmt check test clippy doc audit typos
+ci: fmt clippy test{% if project_type == "library" %} doc{% endif %} audit typos
 
 fmt:
     cargo fmt --check
 
-build *args="":
-    cargo build{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
-
-check:
-{% if project_type == "application" %}
-    cargo check --all-targets
-{% else %}
-    cargo hack --feature-powerset check --all-targets
-{% endif %}
+clippy *args="":
+    cargo clippy --all-targets{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
 
 test *args="":
     cargo test{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
-
-clippy *args="":
-    cargo clippy --all-targets{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
 
 doc *args="":
     cargo doc --no-deps{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
