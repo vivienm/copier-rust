@@ -1,19 +1,19 @@
 ci: fmt clippy test{% if project_type == "library" %} doc{% endif %} audit typos
 
 fmt:
-    cargo fmt --check
+  cargo fmt --check
 
 clippy *args="":
-    cargo clippy --all-targets{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
+  cargo clippy --all-targets{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
 
 test *args="":
-    cargo test{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
+  cargo test{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
 
 doc *args="":
-    cargo doc --no-deps{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
+  cargo doc --no-deps{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
 
 audit:
-    cargo audit
+  cargo audit
 
 typos:
-    typos
+  typos
