@@ -9,7 +9,7 @@ An opinionated [Copier](https://copier.readthedocs.io/en/stable/) template for R
   * [clippy](https://doc.rust-lang.org/nightly/clippy/)
   * [rustdoc](https://doc.rust-lang.org/rustdoc/)
   * [typos](https://github.com/crate-ci/typos)
-  * [cargo-deny](https://github.com/EmbarkStudios/cargo-deny)
+  * [cargo-audit](https://github.com/RustSec/rustsec/tree/main/cargo-audit)
 * Tests run with [just](https://github.com/casey/just).
 * Support for [GitHub actions](https://github.com/features/actions) and [GitHub pages](https://pages.github.com/).
 

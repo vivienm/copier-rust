@@ -1,4 +1,4 @@
-DEFAULT: fmt check test clippy doc deny typos
+DEFAULT: fmt check test clippy doc audit typos
 
 fmt:
     cargo fmt --check
@@ -22,8 +22,8 @@ clippy *args="":
 doc *args="":
     cargo doc --no-deps{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
 
-deny:
-    cargo deny{% if project_type == "library" %} --all-features{% endif %} check
+audit:
+    cargo audit
 
 typos:
     typos
