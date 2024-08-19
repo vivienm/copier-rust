@@ -1,3 +1,5 @@
+set shell := ["bash", "-uc"]
+
 ci: fmt clippy test{% if project_type == "library" %} doc{% endif %} audit typos
 
 fmt:
