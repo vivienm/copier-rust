@@ -71,12 +71,12 @@ copyright_year:
     {%- endif -%}
 
 package_name:
-  help: "Rust crate name"
+  help: "Rust crate name (dashes are recommended over underscores))"
   type: "str"
   default: "{{ project_slug }}"
   validator: >
-    {%- if not package_name -%}
-    You must provide a name for the Rust crate.
+    {%- if not package_name | regex_search('^[a-z][a-z0-9]+([-_][a-z0-9]+)*$') -%}
+    You must provide a valid Rust crate name.
     {%- endif -%}
 
 rust_toolchain:
