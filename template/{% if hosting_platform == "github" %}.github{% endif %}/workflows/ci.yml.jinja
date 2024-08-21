@@ -41,7 +41,7 @@ jobs:
             ~/.cargo/.crates2.json
             ~/.cargo/advisory-db/
             target/
-          key: "${{ '{{' }} runner.os {{ '}}' }}-cargo-${{ '{{' }} hashFiles('Cargo.toml', 'Cargo.lock') {{ '}}' }}"
+          key: "${{ '{{' }} runner.os {{ '}}' }}-cargo-${{ '{{' }} hashFiles('Cargo.lock') {{ '}}' }}"
           restore-keys: "${{ '{{' }} runner.os {{ '}}' }}-cargo-"
       - name: "Run Just"
         run: "just ci"
