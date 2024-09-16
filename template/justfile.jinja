@@ -5,6 +5,9 @@ ci: fmt clippy test{% if project_type == "library" %} doc{% endif %} audit typos
 fmt:
   cargo fmt --check
 
+check *args="":
+  cargo check --all-targets{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
+
 clippy *args="":
   cargo clippy --all-targets{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
 
