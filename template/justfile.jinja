@@ -15,7 +15,7 @@ test *args="":
   cargo test{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
 
 doc *args="":
-  cargo doc --no-deps{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
+  cargo doc --no-deps{% if rust_toolchain == "nightly" %} -Zrustdoc-map{% endif %}{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
 
 audit:
   cargo audit
