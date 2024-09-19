@@ -12,6 +12,12 @@ documentation = "{{ pages_url }}/docs/{{ package_name | replace('-', '_') }}/"
 license = "{% if license == "Proprietary" %}LicenseRef-Proprietary{% else %}{{ license }}{% endif %}"
 publish = false
 
+{% if project_type == "library" %}
+[lints.rust]
+missing_debug_implementations = "warn"
+missing_docs = "warn"
+
+{% endif %}
 [dependencies]
 {% if project_type == "application" %}
 anyhow = "1.0.86"
