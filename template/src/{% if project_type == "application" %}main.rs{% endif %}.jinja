@@ -2,7 +2,12 @@
 #[clap(about)]
 struct Args {
     /// Set the verbosity level for log messages.
-    #[clap(short, long, default_value = "info", env = "{{ package_name | replace('-', '_') | upper }}_LOG_LEVEL")]
+    #[clap(
+        global = true,
+        long,
+        default_value = "info",
+        env = "{{ package_name | replace('-', '_') | upper }}_LOG_LEVEL"
+    )]
     log_level: tracing::level_filters::LevelFilter,
     /// Generate the completion script for the specified shell.
     #[clap(long, exclusive = true, name = "SHELL")]
