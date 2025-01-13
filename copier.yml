@@ -83,6 +83,7 @@ rust_toolchain:
   help: "Rust toolchain"
   type: "str"
   choices:
+  - "1.84"
   - "1.83"
   - "stable"
   - "nightly"
