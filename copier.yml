@@ -83,10 +83,10 @@ rust_toolchain:
   help: "Rust toolchain"
   type: "str"
   choices:
-  - "1.84"
-  - "1.83"
   - "stable"
   - "nightly"
+  - "1.85"
+  - "1.84"
   default: "stable"
 
 forge:
