@@ -35,12 +35,12 @@ project_description:
     The project description must end with a punctuation mark.
     {%- endif -%}
 
-author_name:
+user_name:
   help: "Your full name"
   type: "str"
   placeholder: "John Doe"
   validator: >
-    {%- if not author_name -%}
+    {%- if not user_name -%}
     You must provide your full name.
     {%- endif -%}
 
@@ -55,7 +55,7 @@ license:
 copyright_holder:
   help: "Name of the person or entity holding the copyright"
   type: "str"
-  default: "{{ author_name }}"
+  default: "{{ user_name }}"
   validator: >
     {%- if not copyright_holder -%}
     You must provide a copyright holder.
@@ -89,26 +89,26 @@ rust_toolchain:
   - "nightly"
   default: "stable"
 
-hosting_platform:
+forge:
   help: "Code hosting platform for the project"
   type: "str"
   choices:
   - "none"
   - "github"
 
-github_account:
-  when: "{{ hosting_platform == 'github' }}"
+github_user:
+  when: "{{ forge == 'github' }}"
   help: "GitHub account (username or organization)"
   type: "str"
   placeholder: "jdoe"
   validator: >
-    {%- if not github_account -%}
+    {%- if not github_user -%}
     You must provide a GitHub account.
     {%- endif -%}
 
-repo_name:
-  when: "{{ hosting_platform != 'none' }}"
-  help: "Name of the{% if hosting_platform == 'github' %} GitHub{% endif %} repository"
+github_repo:
+  when: "{{ forge == 'github' }}"
+  help: "Name of the GitHub repository"
   type: "str"
   default: |
     {%- if project_type == "application" -%}
@@ -117,26 +117,26 @@ repo_name:
     rust-{{ project_slug }}
     {%- endif -%}
   validator: >
-    {%- if not repo_name -%}
+    {%- if not github_repo -%}
     You must provide a repository name.
     {%- endif -%}
 
 repo_url:
   when: false
   default: >
-    {%- if hosting_platform == 'github' -%}
-    https://github.com/{{ github_account }}/{{ repo_name }}
+    {%- if forge == 'github' -%}
+    https://github.com/{{ github_user }}/{{ github_repo }}
     {%- endif -%}
 
 github_pages:
-  when: "{{ hosting_platform == 'github' and project_type == 'library' }}"
+  when: "{{ forge == 'github' and project_type == 'library' }}"
   help: "Enable GitHub Pages"
   type: "bool"
-  default: "{{ hosting_platform == 'github' and project_type == 'library' }}"
+  default: "{{ forge == 'github' and project_type == 'library' }}"
 
 pages_url:
   when: false
   default: >
     {%- if github_pages -%}
-    https://{{ github_account }}.github.io/{{ repo_name }}
+    https://{{ github_user }}.github.io/{{ github_repo }}
     {%- endif -%}

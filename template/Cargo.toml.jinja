@@ -3,7 +3,7 @@ name = "{{ package_name }}"
 version = "0.1.0"
 edition = "2021"
 description = "{{ project_description }}"
-{% if hosting_platform != "none" %}
+{% if forge != "none" %}
 repository = "{{ repo_url }}"
 {% endif %}
 {% if github_pages %}
