@@ -85,8 +85,8 @@ rust_toolchain:
   choices:
   - "stable"
   - "nightly"
-  - "1.85"
-  - "1.84"
+  - "1.87"
+  - "1.86"
   default: "stable"
 
 forge:
