@@ -20,8 +20,8 @@ project_type:
   help: "Project type"
   type: "str"
   choices:
-  - "application"
-  - "library"
+    - "application"
+    - "library"
   default: "application"
 
 project_description:
@@ -48,8 +48,8 @@ license:
   help: "Project license"
   type: "str"
   choices:
-  - "MIT"
-  - "Proprietary"
+    - "MIT"
+    - "Proprietary"
   default: "Proprietary"
 
 copyright_holder:
@@ -83,18 +83,18 @@ rust_toolchain:
   help: "Rust toolchain"
   type: "str"
   choices:
-  - "stable"
-  - "nightly"
-  - "1.87"
-  - "1.86"
+    - "stable"
+    - "nightly"
+    - "1.87"
+    - "1.86"
   default: "stable"
 
 forge:
   help: "Code hosting platform for the project"
   type: "str"
   choices:
-  - "none"
-  - "github"
+    - "none"
+    - "github"
 
 github_user:
   when: "{{ forge == 'github' }}"
