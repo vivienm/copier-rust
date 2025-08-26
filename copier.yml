@@ -71,7 +71,7 @@ copyright_year:
     {%- endif -%}
 
 package_name:
-  help: "Rust crate name (dashes are recommended over underscores))"
+  help: "Rust crate name (dashes are recommended over underscores)"
   type: "str"
   default: "{{ project_slug }}"
   validator: >
