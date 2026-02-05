@@ -3,22 +3,22 @@ set shell := ["bash", "-uc"]
 ci: fmt clippy test{% if project_type == "library" %} doc{% endif %} audit typos
 
 fmt:
-  cargo fmt --check
+    cargo fmt --check
 
 check *args="":
-  cargo check --all-targets{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
+    cargo check --all-targets{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
 
 clippy *args="":
-  cargo clippy --all-targets{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
+    cargo clippy --all-targets{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
 
 test *args="":
-  cargo test{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
+    cargo test{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
 
 doc *args="":
-  cargo doc --no-deps{% if rust_toolchain == "nightly" %} -Zrustdoc-map{% endif %}{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
+    cargo doc --no-deps{% if rust_toolchain == "nightly" %} -Zrustdoc-map{% endif %}{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
 
 audit:
-  cargo audit
+    cargo audit
 
 typos:
-  typos
+    typos
