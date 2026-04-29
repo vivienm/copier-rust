@@ -14,7 +14,7 @@ struct Args {
     completion: Option<clap_complete::Shell>,
     /// The person to greet.
 {# https://github.com/clap-rs/clap/discussions/5501 #}
-    #[arg(required = true)]
+    #[arg(required_unless_present = "SHELL")]
     name: Option<String>,
 }
 
