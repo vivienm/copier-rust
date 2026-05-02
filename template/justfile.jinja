@@ -1,6 +1,8 @@
 set shell := ["bash", "-uc"]
 
-ci: fmt clippy test{% if project_type == "library" %} doc{% endif %} audit typos
+ci: lint audit{% if project_type == "library" %} doc{% endif %} test
+
+lint: fmt clippy typos
 
 fmt:
     cargo fmt --check

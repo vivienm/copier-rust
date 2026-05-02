@@ -30,7 +30,8 @@ and fill in the form.
 Go to the project directory, update the dependencies and format the code:
 
 ```bash
-cargo upgrade --recursive
+cargo upgrade --incompatible
+cargo update
 cargo fmt
 ```
 
