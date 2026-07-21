@@ -1,0 +1,113 @@
+{
+  description = "{{ project_description.removesuffix('.') }}";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+
+  outputs =
+    {
+      self,
+      nixpkgs,
+      rust-overlay,
+    }:
+    let
+      inherit (nixpkgs) lib;
+
+      cargoToml = builtins.fromTOML (builtins.readFile ./Cargo.toml);
+
+      isUnfree = cargoToml.package.license == "LicenseRef-Proprietary";
+
+      systems = [
+        "aarch64-darwin"
+        "aarch64-linux"
+        "x86_64-linux"
+      ];
+
+      pkgsFor = lib.genAttrs systems (
+        system:
+        import nixpkgs {
+          inherit system;
+          config.allowUnfree = isUnfree;
+          overlays = [ rust-overlay.overlays.default ];
+        }
+      );
+
+      eachSystem =
+        f:
+        lib.genAttrs systems (
+          system:
+          let
+            pkgs = pkgsFor.${system};
+          in
+          f {
+            inherit pkgs system;
+            rustToolchain = pkgs.rust-bin.fromRustupToolchainFile ./rust-toolchain.toml;
+          }
+        );
+    in
+    {
+{% if project_type == "application" %}
+      packages = eachSystem (
+        { pkgs, rustToolchain, ... }:
+        {
+          default =
+            let
+              rustPlatform = pkgs.makeRustPlatform {
+                cargo = rustToolchain;
+                rustc = rustToolchain;
+              };
+            in
+            rustPlatform.buildRustPackage {
+              pname = cargoToml.package.name;
+              inherit (cargoToml.package) version;
+
+              src = self;
+              cargoLock.lockFile = ./Cargo.lock;
+
+              doCheck = false;
+
+              meta = {
+                mainProgram = "{{ package_name }}";
+                inherit (cargoToml.package) description;
+                license =
+                  if isUnfree then lib.licenses.unfree else lib.getLicenseFromSpdxId cargoToml.package.license;
+              };
+            };
+        }
+      );
+
+      checks = eachSystem (
+        { system, ... }:
+        {
+          package = self.packages.${system}.default.overrideAttrs {
+            doCheck = true;
+          };
+        }
+      );
+
+{% endif %}
+      devShells = eachSystem (
+        { pkgs, rustToolchain, ... }:
+        {
+          default = pkgs.mkShell {
+            name = cargoToml.package.name;
+
+            packages = [
+              pkgs.just
+              pkgs.cargo-audit
+              pkgs.cargo-edit
+              pkgs.typos
+              rustToolchain
+            ];
+          };
+        }
+      );
+
+      formatter = eachSystem ({ pkgs, ... }: pkgs.nixfmt-tree);
+    };
+}

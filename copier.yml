@@ -84,6 +84,11 @@ rust_toolchain:
   type: "str"
   default: "stable"
 
+nix_flake:
+  help: "Generate a Nix flake"
+  type: "bool"
+  default: false
+
 forge:
   help: "Code hosting platform for the project"
   type: "str"

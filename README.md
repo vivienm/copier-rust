@@ -13,6 +13,7 @@ An opinionated [Copier](https://copier.readthedocs.io/en/stable/) template for R
   * [typos](https://github.com/crate-ci/typos)
   * [cargo-audit](https://github.com/RustSec/rustsec/tree/main/cargo-audit)
 * Task automation with [just](https://github.com/casey/just).
+* [Nix](https://nixos.org/) flake.
 * Support for [GitHub actions](https://github.com/features/actions) and [GitHub pages](https://pages.github.com/).
 
 ## Quickstart
