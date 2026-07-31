@@ -46,3 +46,13 @@ fn main() -> anyhow::Result<()> {
     println!("Hello {}!", args.name.expect("required"));
     Ok(())
 }
+
+#[cfg(test)]
+mod tests {
+    use super::Args;
+
+    #[test]
+    fn verify_cli() {
+        <Args as clap::CommandFactory>::command().debug_assert();
+    }
+}
