@@ -10,7 +10,7 @@ struct Args {
     )]
     log_level: tracing::level_filters::LevelFilter,
     /// Generate the completion script for the specified shell.
-    #[arg(long, exclusive = true, name = "SHELL")]
+    #[arg(long, name = "SHELL")]
     completion: Option<clap_complete::Shell>,
     /// The person to greet.
 {# https://github.com/clap-rs/clap/discussions/5501 #}
