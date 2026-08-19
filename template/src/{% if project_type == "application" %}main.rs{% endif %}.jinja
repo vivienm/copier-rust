@@ -1,3 +1,8 @@
+use std::{
+    env,
+    io::{self, IsTerminal},
+};
+
 #[derive(Debug, clap::Parser)]
 #[clap(about)]
 struct Args {
@@ -28,8 +33,12 @@ fn generate_completions(shell: clap_complete::Shell) {
 }
 
 fn setup_logging(log_level: tracing::level_filters::LevelFilter) -> anyhow::Result<()> {
+    let ansi =
+        io::stderr().is_terminal() && env::var_os("NO_COLOR").is_none_or(|value| value.is_empty());
+
     let subscriber = tracing_subscriber::fmt()
-        .with_writer(std::io::stderr)
+        .with_writer(io::stderr)
+        .with_ansi(ansi)
         .with_max_level(log_level)
         .finish();
     tracing::subscriber::set_global_default(subscriber)?;
