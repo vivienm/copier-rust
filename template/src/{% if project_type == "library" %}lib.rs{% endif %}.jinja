@@ -2,7 +2,9 @@
 #![cfg_attr(doc, feature(doc_auto_cfg))]
 
 {% endif %}
-//! {{ project_description }}
+{% for line in project_description.splitlines() %}
+//!{{ ' ' + line if line else '' }}
+{% endfor %}
 {% if forge != "none" %}
 //!
 //! [Repository]

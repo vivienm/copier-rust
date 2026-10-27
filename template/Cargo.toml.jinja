@@ -2,7 +2,9 @@
 name = "{{ package_name }}"
 version = "0.1.0"
 edition = "2024"
-description = "{{ project_description.removesuffix('.') }}"
+description = {{ project_description.removesuffix('.')
+    | to_json(ensure_ascii=False)
+    | replace('\u007f', '\\u007f') }}
 {% if forge != "none" %}
 repository = "{{ repo_url }}"
 {% endif %}

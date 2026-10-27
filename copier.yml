@@ -77,6 +77,10 @@ package_name:
   validator: >
     {%- if not package_name | regex_search('^[a-z][a-z0-9]*([-_][a-z0-9]+)*$') -%}
     You must provide a valid Rust crate name.
+    {%- elif package_name == 'std' -%}
+    The Rust crate name 'std' conflicts with the standard library.
+    {%- elif project_type == 'application' and package_name in ['build', 'deps', 'examples', 'incremental'] -%}
+    The Rust binary name '{{ package_name }}' conflicts with Cargo's build directory names.
     {%- endif -%}
 
 rust_toolchain:
@@ -138,5 +142,8 @@ pages_url:
   when: false
   default: >
     {%- if github_pages -%}
-    https://{{ github_user }}.github.io/{{ github_repo }}
+    https://{{ github_user | lower }}.github.io
+    {%- if github_repo | lower != ((github_user | lower) ~ '.github.io') -%}
+    /{{ github_repo }}
+    {%- endif -%}
     {%- endif -%}

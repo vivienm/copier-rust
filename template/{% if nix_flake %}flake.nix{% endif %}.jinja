@@ -1,5 +1,11 @@
 {
-  description = "{{ project_description.removesuffix('.') }}";
+  description = "{{ project_description.removesuffix('.')
+    | replace('\\', '\\\\')
+    | replace('"', '\\"')
+    | replace('${', '\\${')
+    | replace('\n', '\\n')
+    | replace('\r', '\\r')
+    | replace('\t', '\\t') }}";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
