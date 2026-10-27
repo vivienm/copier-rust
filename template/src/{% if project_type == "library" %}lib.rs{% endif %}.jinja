@@ -1,5 +1,5 @@
-{% if rust_toolchain == "nightly" %}
-#![cfg_attr(doc, feature(doc_auto_cfg))]
+{% if rust_toolchain == "nightly" or rust_toolchain.startswith("nightly-") %}
+#![cfg_attr(doc, feature(doc_cfg))]
 
 {% endif %}
 {% for line in project_description.splitlines() %}
