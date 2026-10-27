@@ -26,7 +26,28 @@ Then, to create a new project based on this template, run the following command 
 copier copy 'https://github.com/vivienm/copier-rust' path/to/your/project
 ```
 
-Go to the project directory, update the dependencies and format the code:
+Go to the project directory and initialize a Git repository:
+
+```bash
+cd path/to/your/project
+git init
+```
+
+If you enabled `nix_flake`, use [Nix with flakes enabled](https://wiki.nixos.org/wiki/Flakes). Track the generated files and enter the development shell, which provides Rust and all required development tools:
+
+```bash
+git add .
+nix develop
+```
+
+Otherwise, install Rust using rustup, then install the required components and development tools (`cargo-edit` provides `cargo upgrade`):
+
+```bash
+rustup component add rustfmt clippy
+cargo install --locked cargo-edit just cargo-audit typos-cli
+```
+
+Update the dependencies and format the code:
 
 ```bash
 cargo upgrade --incompatible
@@ -39,6 +60,8 @@ Run the tests:
 ```bash
 just ci
 ```
+
+If you enabled `github_pages`, [configure your GitHub repository](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site) before the first push to its default branch: in **Settings → Pages → Build and deployment**, set **Source** to **GitHub Actions**. The generated workflow will then publish the library documentation.
 
 You are now ready to start coding!
 
