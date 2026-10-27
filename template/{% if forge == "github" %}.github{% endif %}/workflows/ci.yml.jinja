@@ -14,20 +14,20 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@v6"
+        uses: "actions/checkout@v7"
       - name: "Install the Rust toolchain"
         uses: "dtolnay/rust-toolchain@master"
         with:
           toolchain: "{{ rust_toolchain }}"
           components: "clippy, rustfmt"
       - name: "Install sccache"
-        uses: "mozilla-actions/sccache-action@v0.0.10"
+        uses: "mozilla-actions/sccache-action@v0.0.11"
       - name: "Install development tools"
         uses: "taiki-e/install-action@v2"
         with:
           tool: "just, cargo-audit, typos"
       - name: "Cache Cargo directories"
-        uses: "actions/cache@v5"
+        uses: "actions/cache@v6"
         with:
 {# Directory ~/.cargo/bin/ is managed by taiki-e/install-action, we don't need to cache it #}
           path: |
