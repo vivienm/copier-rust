@@ -1,2 +1,3 @@
+{% from "macros.jinja" import toml_string %}
 [toolchain]
-channel = "{{ rust_toolchain }}"
+channel = {{ toml_string(rust_toolchain) }}

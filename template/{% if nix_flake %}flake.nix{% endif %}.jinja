@@ -1,11 +1,6 @@
+{% from "macros.jinja" import nix_string %}
 {
-  description = "{{ project_description.removesuffix('.')
-    | replace('\\', '\\\\')
-    | replace('"', '\\"')
-    | replace('${', '\\${')
-    | replace('\n', '\\n')
-    | replace('\r', '\\r')
-    | replace('\t', '\\t') }}";
+  description = {{ nix_string(project_description.removesuffix('.')) }};
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -78,7 +73,7 @@
               doCheck = false;
 
               meta = {
-                mainProgram = "{{ package_name }}";
+                mainProgram = {{ nix_string(package_name) }};
                 inherit (cargoToml.package) description;
                 license =
                   if isUnfree then lib.licenses.unfree else lib.getLicenseFromSpdxId cargoToml.package.license;
