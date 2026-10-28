@@ -7,17 +7,21 @@ lint: fmt clippy typos
 fmt:
     cargo fmt --check
 
-check *args="":
-    cargo check --all-targets{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
+[positional-arguments]
+check *args:
+    cargo check --all-targets{% if project_type == "library" %} --all-features{% endif %} "$@"
 
-clippy *args="":
-    cargo clippy --all-targets{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
+[positional-arguments]
+clippy *args:
+    cargo clippy --all-targets{% if project_type == "library" %} --all-features{% endif %} "$@"
 
-test *args="":
-    cargo test{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
+[positional-arguments]
+test *args:
+    cargo test{% if project_type == "library" %} --all-features{% endif %} "$@"
 
-doc *args="":
-    cargo doc --no-deps{% if rust_toolchain == "nightly" or rust_toolchain.startswith("nightly-") %} -Zrustdoc-map{% endif %}{% if project_type == "library" %} --all-features{% endif %} {{ '{{' }}args{{ '}}' }}
+[positional-arguments]
+doc *args:
+    cargo doc --no-deps{% if rust_toolchain == "nightly" or rust_toolchain.startswith("nightly-") %} -Zrustdoc-map{% endif %}{% if project_type == "library" %} --all-features{% endif %} "$@"
 
 audit:
     cargo audit
